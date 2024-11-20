@@ -4,10 +4,11 @@ template <class T> const T& max (const T& a, const T& b) {
   return (a<b)?b:a;
 }
 
+template <class TValue>
 class MyHashMap {
 public:
     int* keys;
-    double* values;
+    TValue* values;
     int size;
     //int* collisions;
     int last_filled;
@@ -15,7 +16,7 @@ public:
     MyHashMap() {
         size = 1000000;
         keys = new int[size]();
-        values = new double[size]();
+        values = new TValue[size]();
         last_filled = 0;
         for (int i=0; i<size; i++){
             values[i] = -1.0;
@@ -27,7 +28,7 @@ public:
         delete[] values;
     }
     
-    void add(int key, double value) {
+    void add(int key, TValue value) {
         int index = key % size;
         keys[index] = key;
         values[index] = value;
@@ -54,7 +55,7 @@ public:
 
 int main()
 {
-    MyHashMap* myobj = new MyHashMap();
+    MyHashMap<double>* myobj = new MyHashMap<double>();
     myobj->add(1,6);
     myobj->add(2,7);
     myobj->add(4,3);
