@@ -1,7 +1,7 @@
 #include <cstdio>
 
 template <class T> const T& max (const T& a, const T& b) {
-  return (a<b)?b:a;     // or: return comp(a,b)?b:a; for version (2)
+  return (a<b)?b:a;
 }
 
 class MyHashSet {
@@ -13,12 +13,17 @@ public:
     
     MyHashSet() {
         size = 1000000;
-        set = new int[size];
-        collisions = new int[size];
+        set = new int[size]();
+        collisions = new int[size]();
         last_filled = 0;
         for (int i=0; i<size; i++){
             collisions[i] = 0;
         }
+    }
+
+    ~MyHashSet() {
+        delete[] set;
+        delete[] collisions;
     }
     
     void add(int key) {
@@ -106,6 +111,8 @@ int main()
         //printf("%d\n", myobj->set[i]);
         printf("%d\n", myobj->collisions[i]);
     }
+
+    delete myobj;
     
     return 1;
 }
